@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+// @ts-ignore
 import textile from 'textile-js';
 
 @Pipe({
