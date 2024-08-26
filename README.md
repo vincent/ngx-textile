@@ -1,27 +1,41 @@
 # NgxTextile
 
-Use Textile markup language in your Angular project
+Use Textile markup language in your Angular project.
 
-## Development server
+## Within a template
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```typescript
+import { Component } from '@angular/core';
+import { TextilePipe } from 'ngx-textile';
 
-## Code scaffolding
+@Component({
+  imports: [TextilePipe],
+  template: `
+    <div [innerHTML]="text | textile"></div>
+  `,
+})
+export class TestTextileComponent {
+    text = 'a _shorthand syntax_ used to generate valid HTML'
+}
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## With the service
 
-## Build
+```typescript
+import { Component, inject } from '@angular/core';
+import { NgxTextileService } from 'ngx-textile';
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+@Component({
+  template: `
+    <div [innerHTML]="text"></div>
+  `,
+})
+export class TestTextileComponent {
+    #textile = inject(NgxTextileService)
+    text = this.#textile.parse('a _shorthand syntax_ used to generate valid HTML')
+}
+```
 
-## Running unit tests
+## Install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`npm i ngx-textile`
