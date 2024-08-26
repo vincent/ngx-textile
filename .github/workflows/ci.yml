@@ -2,97 +2,97 @@ name: Angular Package
 
 on:
   release:
-   types: [created]
-   workflow_dispatch:
+    types: [created]
+    workflow_dispatch:
     inputs:
-     project_name:
-     description: 'Enter the project name'
-     required: true
-     type: string
+      project_name:
+      description: 'Enter the project name'
+      required: true
+      type: string
 
 jobs:
- build:
-  permissions: write-all
-  runs-on: ubuntu-latest
-  steps:
-   - uses: actions/checkout@v3
-   - uses: actions/setup-node@v3
-     with:
-      node-version: 16
-      registry-url: https://npm.pkg.github.com/
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        registry-url: https://npm.pkg.github.com/
 
-   - name: Install Angular CLI
-     run: npm install -g @angular/cli
-  
-  - name: Install dependencies  
-    run: npm ci
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+    
+    - name: Install dependencies  
+      run: npm ci
 
-  - name: Build Angular Project
-    run: ng build ${{ github.event.inputs.project_name }}
+    - name: Build Angular Project
+      run: ng build ${{ github.event.inputs.project_name }}
 
-  - name: Tests
-    run: ng test
+    - name: Tests
+      run: ng test
 
-  - name: Upload Artifacts
-    uses: actions/upload-artifact@v3
-    with:
-      name: build-artifacts
-      path: dist/
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: dist/
 
     
 
 debug:
- needs: build
- permissions: write-all
- runs-on: ubuntu-latest
- steps:
-  - name: Download Artifacts
-    uses: actions/download-artifact@v3
-    with:
-      name: build-artifacts
-      path: dist
+  needs: build
+  permissions: write-all
+  runs-on: ubuntu-latest
+  steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        path: dist
 
-  - name: List Files in dist
-    run: ls -R dist
+    - name: List Files in dist
+      run: ls -R dist
 
-  - name: Print Current Directory
-    run: pwd
+    - name: Print Current Directory
+      run: pwd
 
 publish:
- needs: build
- permissions: write-all
- runs-on: ubuntu-latest
- steps:
-  - name: Checkout code
-    uses: actions/checkout@v2
+  needs: build
+  permissions: write-all
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-  - name: Set up Node.js
-    uses: actions/setup-node@v2
-    with:
-      node-version: 16
-      registry-url: https://npm.pkg.github.com/
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+        registry-url: https://npm.pkg.github.com/
 
-  - name: Configure npm registry for GitHub Packages
-    run: npm config set registry https://npm.pkg.github.com/
+    - name: Configure npm registry for GitHub Packages
+      run: npm config set registry https://npm.pkg.github.com/
 
-  - name: Download Artifacts
-    uses: actions/download-artifact@v3
-    with:
-      name: build-artifacts
-      path: dist
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        path: dist
 
-  - name: List Files in dist
-    run: ls -R dist
+    - name: List Files in dist
+      run: ls -R dist
 
-  - name: Changing Directory
-    run: |
-      cd dist/${{ github.event.inputs.project_name }}
+    - name: Changing Directory
+      run: |
+        cd dist/${{ github.event.inputs.project_name }}
 
-  - name: Publish To Github
-    run: |
-      cd dist/${{ github.event.inputs.project_name }}
-      npm config set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
-      npm publish --access public
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish To Github
+      run: |
+        cd dist/${{ github.event.inputs.project_name }}
+        npm config set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
+        npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
