@@ -6,6 +6,7 @@
     "@angular/core": "^18.0.0"
   },
   "dependencies": {
+    "textile-js": "^2.0.0",
     "tslib": "^2.3.0"
   },
   "sideEffects": false
