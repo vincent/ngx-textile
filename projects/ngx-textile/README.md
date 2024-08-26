@@ -1,24 +1,41 @@
 # NgxTextile
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.0.
+Use Textile markup language in your Angular project.
 
-## Code scaffolding
+## Within a template
 
-Run `ng generate component component-name --project ngx-textile` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-textile`.
-> Note: Don't forget to add `--project ngx-textile` or else it will be added to the default project in your `angular.json` file. 
+```typescript
+import { Component } from '@angular/core';
+import { TextilePipe } from 'ngx-textile';
 
-## Build
+@Component({
+  imports: [TextilePipe],
+  template: `
+    <div [innerHTML]="text | textile"></div>
+  `,
+})
+export class TestTextileComponent {
+    text = 'a _shorthand syntax_ used to generate valid HTML'
+}
+```
 
-Run `ng build ngx-textile` to build the project. The build artifacts will be stored in the `dist/` directory.
+## With the service
 
-## Publishing
+```typescript
+import { Component, inject } from '@angular/core';
+import { NgxTextileService } from 'ngx-textile';
 
-After building your library with `ng build ngx-textile`, go to the dist folder `cd dist/ngx-textile` and run `npm publish`.
+@Component({
+  template: `
+    <div [innerHTML]="text"></div>
+  `,
+})
+export class TestTextileComponent {
+    #textile = inject(NgxTextileService)
+    text = this.#textile.parse('a _shorthand syntax_ used to generate valid HTML')
+}
+```
 
-## Running unit tests
+## Install
 
-Run `ng test ngx-textile` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`npm i ngx-textile`

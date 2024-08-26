@@ -29,7 +29,8 @@ jobs:
       - name: NPM install
         run: npm i
 
+      - name: Test
+        run: npm run test
+
       - name: Build
-        run: |
-          npm run test
-          npm run build
+        run: npm run build
