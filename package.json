@@ -8,7 +8,7 @@
     "ng": "ng",
     "start": "ng serve ngx-textile",
     "build": "ng build ngx-textile",
-    "demo": "ng build demo --output-path docs --base-href /ngx-textile/",
+    "demo": "ng build demo --base-href /ngx-textile/ && rm -Rf docs && cp -r dist/demo/browser docs",
     "watch": "ng build ngx-textile --watch --configuration development",
     "test": "ng test ngx-textile"
   },
