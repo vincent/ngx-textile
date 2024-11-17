@@ -6,10 +6,10 @@ Use Textile markup language in your Angular project, using [textile-js](https://
 
 ```typescript
 import { Component } from '@angular/core';
-import { TextilePipe } from 'ngx-textile';
+import { NgxTextilePipe } from 'ngx-textile';
 
 @Component({
-  imports: [TextilePipe],
+  imports: [NgxTextilePipe],
   template: `
     <div [innerHTML]="text | textile"></div>
   `,
