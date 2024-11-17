@@ -1,7 +1,13 @@
 name: Publish Package to npmjs
 on:
   release:
-    types: [published]
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Enter the project name'
+        required: true
+        type: string
 
 jobs:
   build:
@@ -17,6 +23,8 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
+      - run: npm run build
+      - run: cd dist/${{ inputs.project_name }}
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
