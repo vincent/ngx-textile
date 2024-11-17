@@ -1,6 +1,9 @@
 {
   "name": "ngx-textile",
-  "version": "0.0.1",
+  "version": "0.0.5",
+  "repository": {
+    "url": "https://github.com/vincent/ngx-textile"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
