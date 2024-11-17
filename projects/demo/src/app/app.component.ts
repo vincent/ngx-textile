@@ -31,7 +31,7 @@ import { NgxTextileService } from '../../../ngx-textile/src/public-api';
     }
   `,
   template: `
-    <h1>Ngx-textile</h1>
+    <h1><a href="https://github.com/vincent/ngx-textile#readme">Ngx-textile</a></h1>
 
     <div class="container">
       <textarea class="source" [innerHTML]="source()" (keyup)="source.set($any($event.target).value)"></textarea>
