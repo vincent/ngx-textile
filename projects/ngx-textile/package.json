@@ -1,6 +1,9 @@
 {
   "name": "ngx-textile",
   "version": "0.0.4",
+  "repository": {
+    "url": "https://github.com/vincent/ngx-textile"
+  },
   "peerDependencies": {
     "@angular/common": "^18.0.0",
     "@angular/core": "^18.0.0",
