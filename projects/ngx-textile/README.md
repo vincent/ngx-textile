@@ -2,6 +2,10 @@
 
 Use Textile markup language in your Angular project, using [textile-js](https://github.com/borgar/textile-js)
 
+## Demo
+
+[//vincent.github.io/ngx-textile](https://vincent.github.io/ngx-textile)
+
 ## Within a template
 
 ```typescript
