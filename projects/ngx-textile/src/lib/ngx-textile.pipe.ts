@@ -7,7 +7,7 @@ import textile from 'textile-js';
   standalone: true,
   pure: true
 })
-export class TextilePipe implements PipeTransform {
+export class NgxTextilePipe implements PipeTransform {
   transform(value: string): string {
     return textile(value);
   }
